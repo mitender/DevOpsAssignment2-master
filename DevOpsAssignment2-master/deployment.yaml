@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
       - name: sample-flask
-        image: signoz/sample-flask-app:latest
+        image: nanajanashia/argocd-app:1.2
         imagePullPolicy: Never
         ports:
         - containerPort: 5002
