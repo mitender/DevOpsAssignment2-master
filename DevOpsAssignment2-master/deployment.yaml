@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-flask
+  template:
+    metadata:
+      labels:
+        app: sample-flask
+    spec:
+      containers:
+      - name: sample-flask
+        image: signoz/sample-flask-app:latest
+        ports:
+        - containerPort: 5002
+        env:
+        - name: MONGO_HOST
+          value: mongodb
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://signoz:4317
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: service.name=sample-flask
