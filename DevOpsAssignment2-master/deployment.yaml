@@ -38,8 +38,7 @@ spec:
     spec:
       containers:
       - name: sample-flask
-        image: nanajanashia/argocd-app:1.2
-        imagePullPolicy: Never
+        image: mitender7/devops:latest
         ports:
         - containerPort: 5002
         env:
